@@ -1,28 +1,28 @@
 set -euo pipefail
 
-day=$1
+DAY=$1
 if [[ -z "$1" ]]; then
   echo "missing argument for day"
   echo "usage: ./fetchInput DAY"
   exit 1;
 fi
 
-inputFile="src/input/day$day.txt"
-if [[ ! -f $inputFile ]]; then
-  year=$(date +%Y)
-  curl -sS --cookie "session=$(cat cookie.txt)" "https://adventofcode.com/$year/day/$day/input" -o $inputFile
-  echo "Fetched $inputFile"
-  git add $inputFile
+INPUT_FILE="src/input/day$DAY.txt"
+if [[ ! -f $INPUT_FILE ]]; then
+  YEAR=$(date +%Y)
+  curl -sS --cookie "session=$(cat cookie.txt)" "https://adventofcode.com/$YEAR/day/$DAY/input" -o $INPUT_FILE
+  echo "Fetched $INPUT_FILE"
+  git add $INPUT_FILE
 else
-  echo "$inputFile already exists"
+  echo "$INPUT_FILE already exists"
 fi
 
-sourceFile="src/day$day.py"
-if [[ ! -f $sourceFile ]]; then
-  cp src/skeleton.py src/day$day.py
-  sed -i "s/'REPLACE_ME'/$day/g" src/day$day.py
-  echo "Created $sourceFile"
-  git add $sourceFile
+SOURCE_FILE="src/day$DAY.py"
+if [[ ! -f $SOURCE_FILE ]]; then
+  cp src/skeleton.py src/day$DAY.py
+  sed -i "s/'REPLACE_ME'/$DAY/g" src/day$DAY.py
+  echo "Created $SOURCE_FILE"
+  git add $SOURCE_FILE
 else
-  echo "$sourceFile already exists"
+  echo "$SOURCE_FILE already exists"
 fi
