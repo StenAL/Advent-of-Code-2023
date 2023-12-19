@@ -1,15 +1,21 @@
-def get_input_for_day(day: int) -> list[str]:
+def get_input_for_day(day: int, delim=None) -> list[str]:
     f = open("input/day" + str(day) + ".txt")
-    return [line.strip() for line in f.readlines()]
+    if delim is None:
+        return [line.strip() for line in f.readlines()]
+    else:
+        return f.read().split(delim)
 
 def get_int_input_for_day(day: int) -> list[int]:
     f = open("input/day" + str(day) + ".txt")
     return [int(line.strip()) for line in f.readlines()]
 
 
-def get_input_for_file(file: str) -> list[str]:
+def get_input_for_file(file: str, delim=None) -> list[str]:
     f = open("input/" + file + ".txt")
-    return [line.strip() for line in f.readlines()]
+    if delim is None:
+        return [line.strip() for line in f.readlines()]
+    else:
+        return f.read().split(delim)
 
 
 def get_int_input_for_file(file: str) -> list[int]:
