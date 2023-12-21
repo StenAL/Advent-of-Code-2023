@@ -61,8 +61,9 @@ def task2():
             elif c == "S":
                 positions.add((x, y))
 
+    total_iterations = 26501365 # == 131 * something + 65
     iterations = 65 + rows * 2
-    l = []
+    y = []
     for i in range(iterations):
         new_positions = set()
         for x, y in positions:
@@ -70,10 +71,22 @@ def task2():
             new_positions.update(neighbors)
         positions = new_positions
         if (i + 1) % rows == 65:
-            l.append(len(positions))
-    total_iterations = 26501365
+            y.append(len(positions))
+    # y = ax^2 + bx + c, where x == num of cycles
+    # if x == 0, y0 = c
+    c = y[0]
+    # if x == 1, y1 = a + b + c => a = y1 - b - c
+    # if x == 2, y2 = 4a + 2b + c => a = (y2 - 2b - c) / 4
+    # y1 - b - c = (y2 - 2b - c) / 4
+    # 4y1 - 4b - 4c = y2 - 2b - c
+    # 4y1 - 3c - y2 = 2b
+    # b = (4y1 - 3c - y2) / 2
+    b = (4 * y[1] - 3 * c - y[2]) / 2
+    # a = y1 - b - c
+    a = y[1] - b - c
     cycles = total_iterations // rows
-    ans = 14716 * (cycles) ** 2 + 14835 * cycles + 3734
+    print(a, b, c)
+    ans = int(a * (cycles) ** 2 + b * cycles + c)
     print(ans)
 
 task1()
